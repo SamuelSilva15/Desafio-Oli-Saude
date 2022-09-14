@@ -1,9 +1,11 @@
 package com.example.demo.model;
 
+import javax.persistence.Entity;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Entity
 public class Cliente {
     private String nome;
     private SimpleDateFormat dataDeNascimento = new SimpleDateFormat("dd/MM/yyyy");
