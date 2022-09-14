@@ -2,11 +2,13 @@ package com.example.demo.service;
 
 import com.example.demo.exception.ClienteNotFoundException;
 import com.example.demo.model.Cliente;
-import com.example.demo.service.impl.ClienteServiceImpl;
+
+import java.util.List;
 
 public interface ClienteService {
 
     Cliente salvaCliente(Cliente cliente);
+    List<Cliente> findAll();
     Cliente findByID(Long id) throws ClienteNotFoundException;
     void deletaCliente(Long id);
 

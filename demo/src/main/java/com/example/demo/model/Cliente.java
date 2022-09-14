@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -10,9 +12,10 @@ import java.time.format.DateTimeFormatter;
 public class Cliente {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private SimpleDateFormat dataDeNascimento = new SimpleDateFormat("dd/MM/yyyy");
+    private String dataDeNascimento;
     private String sexo;
     private String problemasDeSaude;
     private String dataDeCriação = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss"));;
@@ -26,11 +29,11 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public SimpleDateFormat getDataDeNascimento() {
+    public String getDataDeNascimento() {
         return dataDeNascimento;
     }
 
-    public void setDataDeNascimento(SimpleDateFormat dataDeNascimento) {
+    public void setDataDeNascimento(String dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
     }
 

@@ -7,6 +7,9 @@ import com.example.demo.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,8 +24,15 @@ public class ClienteServiceImpl implements ClienteService{
 
     @Override
     public Cliente salvaCliente(Cliente cliente) {
+        cliente.setDataDeAtualização(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss")));
         return clienteRepository.save(cliente);
     }
+
+    @Override
+    public List<Cliente> findAll() {
+        return clienteRepository.findAll();
+    }
+
 
     @Override
     public Cliente findByID(Long id) throws ClienteNotFoundException {
@@ -47,6 +57,7 @@ public class ClienteServiceImpl implements ClienteService{
             entity.setDataDeNascimento(cliente.getDataDeNascimento());
             entity.setSexo(cliente.getSexo());
             entity.setProblemasDeSaude(cliente.getProblemasDeSaude());
+            entity.setDataDeAtualização(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss")));
             return clienteRepository.save(entity);
         }
 
