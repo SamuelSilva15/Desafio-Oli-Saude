@@ -21,6 +21,17 @@ public class Cliente {
     private String dataDeCriação = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss"));;
     private String dataDeAtualização;
 
+    public Cliente() {
+    }
+
+    public Cliente(Long id, String nome, String dataDeNascimento, String sexo, String problemasDeSaude) {
+        this.id = id;
+        this.nome = nome;
+        this.dataDeNascimento = dataDeNascimento;
+        this.sexo = sexo;
+        this.problemasDeSaude = problemasDeSaude;
+    }
+
     public String getNome() {
         return nome;
     }

@@ -53,14 +53,22 @@ public class ClienteServiceImpl implements ClienteService{
         if (v.isPresent()) {
             Cliente entity = v.get();
             //fazer copia
-            entity.setNome(cliente.getNome());
-            entity.setDataDeNascimento(cliente.getDataDeNascimento());
-            entity.setSexo(cliente.getSexo());
-            entity.setProblemasDeSaude(cliente.getProblemasDeSaude());
+            if(cliente.getNome() != null){
+                entity.setNome(cliente.getNome());
+            }
+            if(cliente.getDataDeAtualização() != null) {
+                entity.setDataDeNascimento(cliente.getDataDeNascimento());
+            }
+            if(cliente.getSexo() != null) {
+                entity.setSexo(cliente.getSexo());
+            }
+            if(cliente.getProblemasDeSaude() != null) {
+                entity.setProblemasDeSaude(cliente.getProblemasDeSaude());
+            }
             entity.setDataDeAtualização(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss")));
             return clienteRepository.save(entity);
         }
 
-        throw new  ClienteNotFoundException(id);
+        throw new ClienteNotFoundException(id);
     }
 }
