@@ -24,7 +24,7 @@ public class ClienteServiceImpl implements ClienteService{
 
     @Override
     public Cliente salvaCliente(Cliente cliente) {
-        cliente.setDataDeAtualização(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss")));
+        cliente.setDataDeCriacao(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss")));
         return clienteRepository.save(cliente);
     }
 
@@ -49,6 +49,7 @@ public class ClienteServiceImpl implements ClienteService{
 
     @Override
     public Cliente atualizaDados(Long id, Cliente cliente) throws ClienteNotFoundException {
+        cliente.setDataDeAtualizacao(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss")));
         Optional<Cliente> v = clienteRepository.findById(id);
         if (v.isPresent()) {
             Cliente entity = v.get();
@@ -56,7 +57,7 @@ public class ClienteServiceImpl implements ClienteService{
             if(cliente.getNome() != null){
                 entity.setNome(cliente.getNome());
             }
-            if(cliente.getDataDeAtualização() != null) {
+            if(cliente.getDataDeAtualizacao() != null) {
                 entity.setDataDeNascimento(cliente.getDataDeNascimento());
             }
             if(cliente.getSexo() != null) {
@@ -65,7 +66,7 @@ public class ClienteServiceImpl implements ClienteService{
             if(cliente.getProblemasDeSaude() != null) {
                 entity.setProblemasDeSaude(cliente.getProblemasDeSaude());
             }
-            entity.setDataDeAtualização(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss")));
+            entity.setDataDeAtualizacao(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss")));
             return clienteRepository.save(entity);
         }
 
