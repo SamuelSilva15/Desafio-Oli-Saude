@@ -1,8 +1,7 @@
-package com.example.demo.model;
+package com.example.demo.model.problema;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -18,5 +17,5 @@ public class ProblemaDeSaude {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
     private String nome;
-    private int grau;
+    private Integer grau;
 }

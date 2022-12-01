@@ -1,15 +1,12 @@
-package com.example.demo.model;
+package com.example.demo.model.cliente;
 
+import com.example.demo.model.problema.ProblemaDeSaude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.List;
 
 @Data

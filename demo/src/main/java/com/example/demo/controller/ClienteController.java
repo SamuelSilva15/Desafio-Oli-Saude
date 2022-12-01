@@ -1,7 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.exception.ClienteNotFoundException;
-import com.example.demo.model.Cliente;
+import com.example.demo.model.cliente.Cliente;
+import com.example.demo.model.dto.ClienteDTO;
 import com.example.demo.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public Cliente salvaCliente(@RequestBody Cliente cliente){
+    public Cliente salvaCliente(@RequestBody ClienteDTO cliente){
         return clienteService.salvaCliente(cliente);
     }
 
@@ -41,7 +42,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public Cliente AtualizaDados(@PathVariable Long id, @RequestBody Cliente cliente) throws ClienteNotFoundException {
+    public Cliente AtualizaDados(@PathVariable Long id, @RequestBody ClienteDTO cliente) throws ClienteNotFoundException {
         return clienteService.atualizaDados(id, cliente);
     }
 
