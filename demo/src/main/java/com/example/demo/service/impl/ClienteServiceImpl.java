@@ -30,7 +30,7 @@ public class ClienteServiceImpl implements ClienteService{
     public Cliente salvaCliente(ClienteDTO cliente) {
         Cliente c = new Cliente();
         copiaCliente(c, cliente);
-        cliente.setDataDeCriacao(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss")));
+        c.setDataDeCriacao(LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss"))));
         return clienteRepository.save(c);
     }
 
@@ -58,33 +58,15 @@ public class ClienteServiceImpl implements ClienteService{
         Cliente c = clienteRepository.findById(id)
                 .orElseThrow(() -> new ClienteNotFoundException(id));
 
-        Optional<Cliente> v = clienteRepository.findById(id);
-        if (v.isPresent()) {
-            Cliente entity = v.get();
-            //fazer copia
-            if(cliente.getNome() != null){
-                entity.setNome(cliente.getNome());
-            }
-            if(cliente.getDataDeAtualizacao() != null) {
-                entity.setDataDeNascimento(cliente.getDataDeNascimento());
-            }
-            if(cliente.getSexo() != null) {
-                entity.setSexo(cliente.getSexo());
-            }
-
-            entity.setDataDeAtualizacao(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss")));
-            throw new ClienteNotFoundException(id);
-        }
-
         copiaCliente(c, cliente);
+        c.setDataDeAtualizacao(LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss"))));
+
         return clienteRepository.save(c);
     }
 
     public void copiaCliente(Cliente cliente, ClienteDTO clienteDTO){
         cliente.setNome(clienteDTO.getNome());
         cliente.setSexo(clienteDTO.getSexo());
-        cliente.setDataDeCriacao(clienteDTO.getDataDeCriacao());
-        cliente.setDataDeAtualizacao(clienteDTO.getDataDeAtualizacao());
         cliente.setDataDeNascimento(clienteDTO.getDataDeNascimento());
 
         List<ProblemaDeSaude> problemas = new ArrayList<>();
