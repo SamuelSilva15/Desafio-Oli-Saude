@@ -1,5 +1,7 @@
 package com.example.demo.model.problema;
 
+import com.example.demo.model.problema.Enum.GrauEnum;
+import com.example.demo.model.problema.Enum.conveter.ConveterGrau;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,5 +19,9 @@ public class ProblemaDeSaude {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
     private String nome;
-    private Integer grau;
+
+    @Convert(converter = ConveterGrau.class)
+    private GrauEnum grau;
 }
+
+

@@ -4,6 +4,7 @@ import com.example.demo.exception.ClienteNotFoundException;
 import com.example.demo.model.cliente.Cliente;
 import com.example.demo.model.dto.ClienteDTO;
 import com.example.demo.model.dto.ProblemaDeSaudeDTO;
+import com.example.demo.model.problema.Enum.GrauEnum;
 import com.example.demo.model.problema.ProblemaDeSaude;
 import com.example.demo.repository.ClienteRepository;
 import com.example.demo.service.ClienteService;
@@ -30,7 +31,7 @@ public class ClienteServiceImpl implements ClienteService{
     public Cliente salvaCliente(ClienteDTO cliente) {
         Cliente c = new Cliente();
         copiaCliente(c, cliente);
-        c.setDataDeCriacao(LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss"))));
+        c.setDataDeCriacao(LocalDateTime.now());
         return clienteRepository.save(c);
     }
 
@@ -59,7 +60,7 @@ public class ClienteServiceImpl implements ClienteService{
                 .orElseThrow(() -> new ClienteNotFoundException(id));
 
         copiaCliente(c, cliente);
-        c.setDataDeAtualizacao(LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm:ss"))));
+        c.setDataDeAtualizacao(LocalDateTime.now());
 
         return clienteRepository.save(c);
     }
@@ -81,6 +82,6 @@ public class ClienteServiceImpl implements ClienteService{
 
     public void copiaProblemaDeSaude(ProblemaDeSaude problemaDeSaude, ProblemaDeSaudeDTO problemaDeSaudeDTO) {
         problemaDeSaude.setNome(problemaDeSaudeDTO.getNome());
-        problemaDeSaude.setGrau(problemaDeSaudeDTO.getGrau());
+        problemaDeSaude.setGrau(GrauEnum.fromCodigo(problemaDeSaudeDTO.getGrau()));
     }
 }
