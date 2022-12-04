@@ -10,16 +10,15 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 @Table(name = "cliente")
-public class Cliente {
+public class Cliente implements Comparable<Cliente> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,4 +35,31 @@ public class Cliente {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cliente_codigo")
     private List<ProblemaDeSaude> problemasDeSaude;
+
+    public Integer calculaGraus() {
+        var sd = 0;
+        if(problemasDeSaude != null) {
+            for (ProblemaDeSaude problemaDeSaude : problemasDeSaude) {
+                if(problemaDeSaude.getGrau() != null) {
+                    sd += problemaDeSaude.getGrau().getCodigo();
+                } else {
+                    System.out.println(codigo);
+                }
+            }
+        } else {
+            System.out.println("ts:" + codigo);
+        }
+        return sd;
+    }
+
+    public Double getScore() {
+        var score = (1 / (1 + Math.E-(-2.8 + calculaGraus()))) * 100;
+
+        return score;
+    }
+
+    @Override
+    public int compareTo(Cliente o) {
+        return Comparator.comparing(Cliente::getScore).reversed().compare(this, o);
+    }
 }

@@ -12,10 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClienteServiceImpl implements ClienteService{
@@ -65,7 +64,14 @@ public class ClienteServiceImpl implements ClienteService{
         return clienteRepository.save(c);
     }
 
-    public void copiaCliente(Cliente cliente, ClienteDTO clienteDTO){
+    @Override
+    public List<Cliente> retornaDezMaioresClientesComProblemas() {
+        List<Cliente> clientes = clienteRepository.findAll();
+
+        return clientes.stream().sorted().limit(10).collect(Collectors.toList());
+    }
+
+    public void copiaCliente(Cliente cliente, ClienteDTO clienteDTO) {
         cliente.setNome(clienteDTO.getNome());
         cliente.setSexo(clienteDTO.getSexo());
         cliente.setDataDeNascimento(clienteDTO.getDataDeNascimento());

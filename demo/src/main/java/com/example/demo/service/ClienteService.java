@@ -3,7 +3,6 @@ package com.example.demo.service;
 import com.example.demo.exception.ClienteNotFoundException;
 import com.example.demo.model.cliente.Cliente;
 import com.example.demo.model.dto.ClienteDTO;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -15,4 +14,6 @@ public interface ClienteService {
     void deletaCliente(Long id);
 
     Cliente atualizaDados(Long id, ClienteDTO clienteDTO) throws ClienteNotFoundException;
+
+    List<Cliente> retornaDezMaioresClientesComProblemas();
 }

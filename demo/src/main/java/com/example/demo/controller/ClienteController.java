@@ -46,4 +46,8 @@ public class ClienteController {
         return clienteService.atualizaDados(id, cliente);
     }
 
+    @GetMapping("/clientesRisco")
+    public List<Cliente> retornaDezClientesComMaiorRisco(){
+        return clienteService.retornaDezMaioresClientesComProblemas();
+    }
 }
